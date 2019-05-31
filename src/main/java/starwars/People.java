@@ -2,15 +2,19 @@ package starwars;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public class People {
+    // almost all params is String because You can get from swapi data which type is number or string
+    // in Your code You must (or not, if it's string) parse this params to number
     private long id;
     private String name;
-    private long height;
-    private long mass;
+    private String height;
+    private String mass;
     private String hair_color;
     private String skin_color;
     private String eye_color;
@@ -43,19 +47,19 @@ public class People {
         this.id = id;
     }
 
-    public long getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(long height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public long getMass() {
+    public String getMass() {
         return mass;
     }
 
-    public void setMass(long mass) {
+    public void setMass(String mass) {
         this.mass = mass;
     }
 
@@ -136,7 +140,18 @@ public class People {
     }
 
     public void setFilms(List<Film> films) {
-        this.films = films;
+
+        List<Film> tmpFilmsList = new LinkedList();
+        ObjectDownloader object;
+
+        for (Film film : films) {
+
+            object = new ObjectDownloader(film.getUrl(), film);
+            film = (Film) object.getObjectFromRepository();
+            tmpFilmsList.add(film);
+        }
+
+        this.films = tmpFilmsList;
     }
 
     public List<Species> getSpecies() {
@@ -152,7 +167,19 @@ public class People {
     }
 
     public void setVehicles(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+        //this.vehicles = vehicles;
+
+        List<Vehicle> tmpvehicleList = new LinkedList();
+        ObjectDownloader object;
+
+        for (Vehicle vehicle : vehicles) {
+
+            object = new ObjectDownloader(vehicle.getUrl(), vehicle);
+            vehicle = (Vehicle) object.getObjectFromRepository();
+            tmpvehicleList.add(vehicle);
+        }
+
+        this.vehicles = tmpvehicleList;
     }
 
     public List<Starship> getStarships() {
@@ -163,15 +190,15 @@ public class People {
         this.starships = starships;
     }
 
-    public String toString(){
-        String returnValue = "name: "+ getName()
-        + "\nheight: " + getHeight()
-        + "\nmass: " + getMass()
-        + "\nhair color: " + getHair_color()
-        + "\nskin color: " + getSkin_color()
-        + "\neye color: " + getEye_color()
-        + "\nbirth hear: " + getBirth_year()
-        + "\ngender: " + getGender();
+    public String toString() {
+        String returnValue = "name: " + getName()
+                + "\nheight: " + getHeight()
+                + "\nmass: " + getMass()
+                + "\nhair color: " + getHair_color()
+                + "\nskin color: " + getSkin_color()
+                + "\neye color: " + getEye_color()
+                + "\nbirth hear: " + getBirth_year()
+                + "\ngender: " + getGender();
 
         return returnValue;
     }

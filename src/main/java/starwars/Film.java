@@ -2,6 +2,7 @@ package starwars;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -22,7 +23,7 @@ public class Film {
     private String created;
     private String edited;
 
-    public Film(){
+    public Film() {
 
     }
 
@@ -60,6 +61,18 @@ public class Film {
 
     public void setVehicles(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
+
+        List<Vehicle> tmpvehicleList = new LinkedList();
+        ObjectDownloader object;
+
+        for (Vehicle vehicle : vehicles) {
+
+            object = new ObjectDownloader(vehicle.getUrl(), vehicle);
+            vehicle = (Vehicle) object.getObjectFromRepository();
+            tmpvehicleList.add(vehicle);
+        }
+
+        this.vehicles = tmpvehicleList;
     }
 
     public List<Starship> getStarships() {
@@ -150,7 +163,7 @@ public class Film {
         this.characters = characters;
     }
 
-    public String toString(){
+    public String toString() {
         return title;
     }
 }
