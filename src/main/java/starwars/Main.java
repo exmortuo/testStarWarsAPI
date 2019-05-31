@@ -32,6 +32,19 @@ public class Main {
             }
             System.out.println("\n");
         }
+
+        System.out.println("\n\nPodaj proszę ID filmu: ");
+        int movieId = readFromConsole.nextInt();
+
+        Film movie = new Film();
+        object = new ObjectDownloader("https://swapi.co/api/films/"+movieId+"/", movie);
+        movie = (Film) object.getObjectFromRepository();
+
+        System.out.println("Movie title: " + movie.getTitle());
+        System.out.println("\n\tVehicles from this movie: ");
+        for(Vehicle vehicle: movie.getVehicles()) {
+            System.out.println("\t\t"+vehicle.toString());
+        }
     }
 
 }
