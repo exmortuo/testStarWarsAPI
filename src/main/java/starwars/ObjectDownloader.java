@@ -33,9 +33,16 @@ public class ObjectDownloader<T> {
             response = client.newCall(request).execute();
             objectFromStarWarsDatabase = objectMapper.readValue(response.body().string(), objectClass);
 
+            if (response.code() == 404) {
+                return objectClass.newInstance();
+            }
             return objectFromStarWarsDatabase;
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
             e.printStackTrace();
         }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
@@ -56,6 +57,9 @@ public class Film {
     }
 
     public List<Vehicle> getVehicles() {
+        if(this.vehicles == null){
+            return new LinkedList<Vehicle>();
+        }
         return vehicles;
     }
 

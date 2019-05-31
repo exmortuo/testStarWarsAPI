@@ -112,6 +112,9 @@ public class People {
     }
 
     public List<Film> getFilms() {
+        if(this.films == null) { ;
+            return new LinkedList<Film>();
+        }
         return films;
     }
 

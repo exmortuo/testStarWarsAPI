@@ -33,7 +33,7 @@ public class Main {
             System.out.println("\n");
         }
 
-        System.out.println("\n\nPodaj proszę ID filmu: ");
+        System.out.print("\n\nPodaj proszę ID filmu: ");
         int movieId = readFromConsole.nextInt();
 
         Film movie = new Film();
