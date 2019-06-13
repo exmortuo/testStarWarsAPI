@@ -24,7 +24,11 @@ public class Main {
 
         System.out.println("\n\nMovies in which this actor played: \n");
         for (Film film: people.getFilms()) {
-            System.out.println("\tMovie: " + film.getTitle());
+
+            String[] splitedUrl = film.getUrl().split("/");
+            int movieId = Integer.parseInt(splitedUrl[5]);
+
+            System.out.println("\tMovie: " + movieId + " - " + film.getTitle());
 
             System.out.println("\n\t\tVehicles from this movie: ");
             for (Vehicle vehicle : film.getVehicles()) {
