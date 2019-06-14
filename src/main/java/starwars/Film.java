@@ -11,6 +11,7 @@ import java.util.Vector;
 public class Film {
     private String url;
     private String title;
+    private Integer movieId;
     private String episode_id;
     private String opening_crawl;
     private String director;
@@ -30,6 +31,16 @@ public class Film {
 
     public Film(String url) {
         this.url = url;
+    }
+
+    public Integer getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId() {
+
+        String[] splitedUrl = this.url.split("/");
+        this.movieId = Integer.parseInt(splitedUrl[5]);
     }
 
     public String getCreated() {
@@ -109,6 +120,7 @@ public class Film {
 
     public void setUrl(String url) {
         this.url = url;
+        setMovieId();
     }
 
     public String getTitle() {
@@ -168,6 +180,6 @@ public class Film {
     }
 
     public String toString() {
-        return title;
+        return getMovieId() + " - " + getTitle();
     }
 }

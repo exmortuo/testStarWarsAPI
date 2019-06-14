@@ -25,14 +25,12 @@ public class Main {
         System.out.println("\n\nMovies in which this actor played: \n");
         for (Film film: people.getFilms()) {
 
-            String[] splitedUrl = film.getUrl().split("/");
-            int movieId = Integer.parseInt(splitedUrl[5]);
 
-            System.out.println("\tMovie: " + movieId + " - " + film.getTitle());
+            System.out.println("\tMovie: "+film.toString());
 
             System.out.println("\n\t\tVehicles from this movie: ");
             for (Vehicle vehicle : film.getVehicles()) {
-                System.out.println("\t\t\t"+vehicle.toString());
+                System.out.println("\t\t\t"+ vehicle.toString());
             }
             System.out.println("\n");
         }
@@ -44,7 +42,7 @@ public class Main {
         object = new ObjectDownloader("https://swapi.co/api/films/"+movieId+"/", movie);
         movie = (Film) object.getObjectFromRepository();
 
-        System.out.println("Movie title: " + movie.getTitle());
+        System.out.println("Movie: " + movie.toString());
         System.out.println("\n\tVehicles from this movie: ");
         for(Vehicle vehicle: movie.getVehicles()) {
             System.out.println("\t\t"+vehicle.toString());

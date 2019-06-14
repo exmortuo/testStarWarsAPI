@@ -8,6 +8,7 @@ public class Vehicle {
 
     private String url;
     private String name;
+    private Integer vehicleId;
 
     public Vehicle() {
     }
@@ -16,12 +17,24 @@ public class Vehicle {
         this.url = url;
     }
 
+    public Integer getVehicleId() {
+
+        return vehicleId;
+    }
+
+    public void setVehicleId() {
+
+        String[] splitedUrl = this.url.split("/");
+        this.vehicleId = Integer.parseInt(splitedUrl[5]);
+    }
+
     public String getUrl() {
         return url;
     }
 
     public void setUrl(String url) {
         this.url = url;
+        setVehicleId();
     }
 
     public String getName() {
@@ -33,6 +46,7 @@ public class Vehicle {
     }
 
     public String toString(){
-        return name;
+
+        return getVehicleId() + " - " + getName();
     }
 }
