@@ -1,13 +1,11 @@
 package starwars;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.util.LinkedList;
+import lombok.Data;
 import java.util.List;
-import java.util.Vector;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
+@Data
 public class Film {
     private String url;
     private String title;
@@ -18,10 +16,10 @@ public class Film {
     private String producer;
     private String release_date;
     private List<String> characters;
-    private List<Planet> planets;
-    private List<Starship> starships;
-    private List<Vehicle> vehicles;
-    private List<Species> species;
+    private List<String> planets;
+    private List<String> starships;
+    private List<String> vehicles;
+    private List<String> species;
     private String created;
     private String edited;
 
@@ -33,150 +31,42 @@ public class Film {
         this.url = url;
     }
 
-    public Integer getMovieId() {
-        return movieId;
-    }
-
     public void setMovieId() {
 
         String[] splitedUrl = this.url.split("/");
         this.movieId = Integer.parseInt(splitedUrl[5]);
     }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getEdited() {
-        return edited;
-    }
-
-    public void setEdited(String edited) {
-        this.edited = edited;
-    }
-
-    public List<Species> getSpecies() {
-        return species;
-    }
-
-    public void setSpecies(List<Species> species) {
-        this.species = species;
-    }
-
-    public List<Vehicle> getVehicles() {
-        if(this.vehicles == null){
-            return new LinkedList<Vehicle>();
-        }
-        return vehicles;
-    }
-
-    public void setVehicles(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
-
-        List<Vehicle> tmpvehicleList = new LinkedList();
-        ObjectDownloader object;
-
-        for (Vehicle vehicle : vehicles) {
-
-            object = new ObjectDownloader(vehicle.getUrl(), vehicle);
-            vehicle = (Vehicle) object.getObjectFromRepository();
-            tmpvehicleList.add(vehicle);
-        }
-
-        this.vehicles = tmpvehicleList;
-    }
-
-    public List<Starship> getStarships() {
-        return starships;
-    }
-
-    public void setStarships(List<Starship> starships) {
-        this.starships = starships;
-    }
-
-    public List<Planet> getPlanets() {
-        return planets;
-    }
-
-    public void setPlanets(List<Planet> planets) {
-        this.planets = planets;
-    }
-
-    public String getFilm() {
-        return url;
-    }
-
-    public void setFilm(String filmUrl) {
-        this.url = filmUrl;
-    }
-
-    public String getUrl() {
-        return url;
-    }
 
     public void setUrl(String url) {
         this.url = url;
         setMovieId();
     }
 
-    public String getTitle() {
-        return title;
+
+    public List<Vehicle> getVehicles(){
+        ObjectDownloader object = new ObjectDownloader(vehicles, new Vehicle());
+        return object.getObjectsListFromRepository();
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public List<People> getCharacters() {
+        ObjectDownloader object = new ObjectDownloader(characters, new People());
+        return object.getObjectsListFromRepository();
     }
 
-    public String getEpisode_id() {
-        return episode_id;
+    public List<Planet> getPlanets() {
+        ObjectDownloader object = new ObjectDownloader(planets, new Planet());
+        return object.getObjectsListFromRepository();
     }
 
-    public void setEpisode_id(String episode_id) {
-        this.episode_id = episode_id;
+    public List<Starship> getStarships() {
+        ObjectDownloader object = new ObjectDownloader(starships, new Starship());
+        return object.getObjectsListFromRepository();
     }
 
-    public String getOpening_crawl() {
-        return opening_crawl;
-    }
-
-    public void setOpening_crawl(String opening_crawl) {
-        this.opening_crawl = opening_crawl;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-
-    public void setProducer(String producer) {
-        this.producer = producer;
-    }
-
-    public String getRelease_date() {
-        return release_date;
-    }
-
-    public void setRelease_date(String release_date) {
-        this.release_date = release_date;
-    }
-
-    public List<String> getCharacters() {
-        return characters;
-    }
-
-    public void setCharacters(List<String> characters) {
-        this.characters = characters;
+    public List<Species> getSpecies() {
+        ObjectDownloader object = new ObjectDownloader(species, new Species());
+        return object.getObjectsListFromRepository();
     }
 
     public String toString() {
